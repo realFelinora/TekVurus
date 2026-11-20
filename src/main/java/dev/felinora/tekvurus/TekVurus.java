@@ -66,6 +66,17 @@ public final class TekVurus extends JavaPlugin implements Listener, TabCompleter
     private static final Set<Material> NETHER_YAPRAK = EnumSet.of(
             Material.NETHER_WART_BLOCK, Material.WARPED_WART_BLOCK, Material.SHROOMLIGHT);
 
+    /** Ağaca yapışık süsler: devrilirken havada kalmasınlar diye ağaçla birlikte düşerler. */
+    private static final Set<Material> SUSLER = EnumSet.noneOf(Material.class);
+
+    static {
+        for (String ad : new String[]{"SNOW", "VINE", "COCOA", "BEE_NEST", "GLOW_LICHEN", "PALE_HANGING_MOSS",
+                "WEEPING_VINES", "WEEPING_VINES_PLANT", "MOSS_CARPET", "PALE_MOSS_CARPET", "MANGROVE_PROPAGULE"}) {
+            Material m = Material.getMaterial(ad);
+            if (m != null) SUSLER.add(m);
+        }
+    }
+
     private final Set<UUID> kapali = new HashSet<>();
     private final Set<UUID> calisiyor = new HashSet<>();
     private final Set<Material> madenler = EnumSet.noneOf(Material.class);
@@ -263,10 +274,30 @@ public final class TekVurus extends JavaPlugin implements Listener, TabCompleter
         Material fidan = fidanTuru(bas.getType());
         for (Block k : govde) if (k.getY() == enAlt && fidanYerleri.size() < 4) fidanYerleri.add(k.getLocation());
 
+        // Ağaca yapışık kar, sarmaşık, kakao, arı yuvası... (sarkan sarmaşıklar aşağı doğru takip edilir)
+        List<Block> susler = new ArrayList<>();
+        Set<Block> parcalarKumesi = new HashSet<>(govde);
+        parcalarKumesi.addAll(yapraklar);
+        Set<Block> gorulenSus = new HashSet<>();
+        for (Block k : parcalarKumesi) {
+            for (BlockFace f : new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST}) {
+                Block n = k.getRelative(f);
+                while (SUSLER.contains(n.getType()) && !parcalarKumesi.contains(n) && gorulenSus.add(n) && susler.size() < 400) {
+                    susler.add(n);
+                    if (f != BlockFace.DOWN) break;
+                    n = n.getRelative(BlockFace.DOWN);
+                }
+            }
+        }
+
         Runnable fidanIsi = () -> {
             if (fidan != null && getConfig().getBoolean("agac.fidan-dik", true)) fidanDik(fidanYerleri, fidan);
         };
-        if (getConfig().getBoolean("agac.devrilme", true)) devir(p, bas, olay, kutukler, yapraklar, fidanIsi);
+        if (getConfig().getBoolean("agac.devrilme", true)) {
+            List<Block> digerleri = new ArrayList<>(yapraklar);
+            digerleri.addAll(susler);
+            devir(p, bas, olay, kutukler, digerleri, fidanIsi);
+        }
         else calistir(p, bas, kutukler, yapraklar, false, fidanIsi);
     }
 

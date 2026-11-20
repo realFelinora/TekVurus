@@ -61,5 +61,5 @@ maden:
 ## Derleme
 ```sh
 ./gradlew build
-# çıktı: build/libs/TekVurus-1.0.0.jar
+# çıktı: build/libs/TekVurus-1.0.1.jar
 ```
