@@ -1,0 +1,23 @@
+name: TekVurus
+version: '${version}'
+main: dev.felinora.tekvurus.TekVurus
+api-version: '1.20'
+author: Felinora
+description: Tek vuruşta bütün ağacı kes, bütün maden damarını kaz.
+
+commands:
+  tekvurus:
+    description: TekVuruş'u kendin için açar/kapatır.
+    usage: /<command> [yenile]
+    aliases: [tv, veinminer, treefeller]
+
+permissions:
+  tekvurus.agac:
+    description: Tek vuruşta ağaç kesebilir.
+    default: true
+  tekvurus.maden:
+    description: Tek vuruşta maden damarı kazabilir.
+    default: true
+  tekvurus.yonetici:
+    description: Ayarları yeniler.
+    default: op

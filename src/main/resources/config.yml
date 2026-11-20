@@ -1,0 +1,75 @@
+# TekVuruş ayarları
+# Mesaj dili: tr veya en
+dil: tr
+
+# Her tick (1/20 saniye) kaç blok kırılsın. Büyük sayı = daha hızlı animasyon.
+hiz: 3
+
+# Aletin dayanıklılığı kırılan her blok için azalsın mı? (Kırılmaz büyüsü hesaba katılır)
+dayaniklilik: true
+
+# Alet kırılmak üzereyken dursun mu? (aletin kırılmasını engeller)
+aleti-koru: true
+
+agac:
+  aktif: true
+  # false: normal vuruşta ağaç devrilir, eğilerek (Shift) vurursan tek kütük kırılır
+  # true: sadece eğilirken devrilir
+  egilerek-calis: false
+  # En fazla kaç kütük kesilsin
+  limit: 200
+  # Ağacın yapraklarını da dök (fidan ve elma düşer)
+  yapraklar: true
+  # Ağaç gerçekçi şekilde devrilsin (false: bloklar tek tek kırılır)
+  devrilme: true
+  # Kesilen ağacın yerine otomatik fidan dik
+  fidan-dik: true
+  # Ağaç sayılması için gereken en az doğal yaprak sayısı (kütükten evleri korur)
+  en-az-yaprak: 5
+
+maden:
+  aktif: true
+  # true: sadece eğilirken (Shift) bütün damar kırılır, normal vuruşta tek blok
+  egilerek-calis: true
+  # En fazla kaç maden bloğu kırılsın
+  limit: 64
+  # Kazılan madenler havada uçarak oyuncunun envanterine girsin
+  miknatis: true
+  # Hangi madenler damar olarak kırılsın (deepslate türleri otomatik dahil)
+  madenler:
+    - COAL_ORE
+    - IRON_ORE
+    - COPPER_ORE
+    - GOLD_ORE
+    - REDSTONE_ORE
+    - LAPIS_ORE
+    - DIAMOND_ORE
+    - EMERALD_ORE
+    - NETHER_GOLD_ORE
+    - NETHER_QUARTZ_ORE
+    - ANCIENT_DEBRIS
+
+# Bu dünyalarda çalışmaz
+haric-dunyalar: []
+
+mesajlar:
+  tr:
+    onek: "&8[&6🪓 TekVuruş&8] "
+    acildi: "&aTekVuruş açıldı."
+    kapandi: "&cTekVuruş kapandı."
+    devriliyor: "&6&l🪓 AĞAÇ DEVRİLİYOR!"
+    agac-bitti: "&6🪓 &e%sayi% &6kütük kesildi!"
+    maden-bitti: "&b⛏ &e%sayi% &bmaden kazıldı!"
+    alet-korundu: "&cAletin kırılmak üzere, durduruldu!"
+    yenilendi: "&aAyarlar yenilendi."
+    yetki-yok: "&cBunun için yetkin yok."
+  en:
+    onek: "&8[&6🪓 OneHit&8] "
+    acildi: "&aOneHit enabled."
+    kapandi: "&cOneHit disabled."
+    devriliyor: "&6&l🪓 TIMBER!"
+    agac-bitti: "&6🪓 &e%sayi% &6logs chopped!"
+    maden-bitti: "&b⛏ &e%sayi% &bores mined!"
+    alet-korundu: "&cYour tool is about to break, stopped!"
+    yenilendi: "&aConfig reloaded."
+    yetki-yok: "&cYou don't have permission."
