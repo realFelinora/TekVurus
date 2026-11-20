@@ -282,7 +282,8 @@ public final class TekVurus extends JavaPlugin implements Listener, TabCompleter
         for (Block k : parcalarKumesi) {
             for (BlockFace f : new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST}) {
                 Block n = k.getRelative(f);
-                while (SUSLER.contains(n.getType()) && !parcalarKumesi.contains(n) && gorulenSus.add(n) && susler.size() < 400) {
+                while (SUSLER.contains(n.getType()) && !parcalarKumesi.contains(n) && susUygun(n, parcalarKumesi)
+                        && gorulenSus.add(n) && susler.size() < 400) {
                     susler.add(n);
                     if (f != BlockFace.DOWN) break;
                     n = n.getRelative(BlockFace.DOWN);
@@ -299,6 +300,22 @@ public final class TekVurus extends JavaPlugin implements Listener, TabCompleter
             devir(p, bas, olay, kutukler, digerleri, fidanIsi);
         }
         else calistir(p, bas, kutukler, yapraklar, false, fidanIsi);
+    }
+
+    /** Kar sadece ağacın üstündeyse ağaca aittir; yerdeki kar yerinde kalır. */
+    private static boolean susUygun(Block sus, Set<Block> agac) {
+        if (sus.getType() != Material.SNOW) return true;
+        return agac.contains(sus.getRelative(BlockFace.DOWN));
+    }
+
+    /** Üstü boşalan çimen/miselyum/podzol "karlı" görünmeye devam etmesin. */
+    private static void karliZeminiDuzelt(Block bosalan) {
+        Block alt = bosalan.getRelative(BlockFace.DOWN);
+        if (alt.getBlockData() instanceof org.bukkit.block.data.Snowable z && z.isSnowy()
+                && bosalan.getType() != Material.SNOW && bosalan.getType() != Material.SNOW_BLOCK) {
+            z.setSnowy(false);
+            alt.setBlockData(z, false);
+        }
     }
 
     private static Material fidanTuru(Material kutuk) {
@@ -451,6 +468,7 @@ public final class TekVurus extends JavaPlugin implements Listener, TabCompleter
         pr.dusenler = yaratici ? List.of() : (alet == null ? x.getDrops() : x.getDrops(alet, p));
         pr.ofset = ofset(x, pivot);
         x.setType(Material.AIR, false);
+        karliZeminiDuzelt(x);
         pr.gorsel = gorselYap(x, pivot, pr);
         p.setExhaustion(Math.min(40f, p.getExhaustion() + 0.005f));
         return pr;
