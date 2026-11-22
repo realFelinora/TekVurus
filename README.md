@@ -3,6 +3,8 @@
 Paper/Spigot sunucuları için **Türkçe ağaç kesme ve maden kazma eklentisi**.
 Tek vuruşta bütün ağaç **gerçekçi şekilde devrilir**, maden damarındaki bütün cevherler **havada uçarak** envanterine gelir.
 
+**⬇️ İndir:** [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/one-hit-falling-trees-and-vein-miner-tekvurus) (önerilen) • [GitHub Releases](../../releases)
+
 ## Özellikler
 - **Devrilen ağaç:** Ağaç bir anda yok olmaz. Gövdesi ve yapraklarıyla birlikte baktığın yönün tersine yavaşça yatar, hızlanarak yere çarpar, toz kalkar ve kütükler düştüğü yere saçılır
 - **Uçan madenler:** Eğilip kazmayla vurunca damardaki bütün cevherler dönerek ve kavis çizerek sana uçar, envanterine girer
@@ -34,7 +36,7 @@ Tek vuruşta bütün ağaç **gerçekçi şekilde devrilir**, maden damarındaki
 | `tekvurus.maden` | Tek vuruşta maden kazma | herkes |
 
 ## Kurulum
-1. [Releases](../../releases) kısmından `TekVurus-x.x.x.jar` dosyasını indirin.
+1. [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/one-hit-falling-trees-and-vein-miner-tekvurus) ya da [Releases](../../releases) kısmından `TekVurus-x.x.x.jar` dosyasını indirin.
 2. Sunucunun `plugins` klasörüne atın ve sunucuyu yeniden başlatın.
 3. İsterseniz `plugins/TekVurus/config.yml` dosyasını düzenleyip `/tekvurus yenile` yazın.
 
